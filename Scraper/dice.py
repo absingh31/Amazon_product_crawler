@@ -75,6 +75,7 @@ class ProductData:
 
 	def __del__(self):
 		# just to delete the object
+		return 0
 
 
 
