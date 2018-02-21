@@ -82,7 +82,7 @@ class ProductData:
 
 prod = ProductData(input('Enter the url'))
 
-#from pprint import pprint
+from pprint import pprint
 
 pprint(prod.get_asin())
 pprint(prod.get_title())
