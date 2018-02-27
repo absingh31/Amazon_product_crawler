@@ -1,6 +1,6 @@
 from get_domains import *
 from file_manage import *
-from link_finder import link_crawler
+from links_finder import link_crawler
 from urllib.request import urlopen
 
 class Crawl_bot:
@@ -46,9 +46,11 @@ class Crawl_bot:
                 html_data_string = data_bytes.decode("latin-1")
             link_finder = link_crawler(Crawl_bot.start_link, web_url)
             link_finder.feed(html_data_string)
+
         except Exception as e:
             print(str(e))
             return set()
+        
         return link_finder.page_urls()
 
     @staticmethod
@@ -58,6 +60,7 @@ class Crawl_bot:
                 continue
             if Crawl_bot.domain_name != get_domain_name(url):
                 continue
+
             Crawl_bot.queue.add(url)
 
     @staticmethod

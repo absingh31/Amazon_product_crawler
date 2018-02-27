@@ -78,10 +78,10 @@ class ProductData:
 		if title is None:
 			return None
 
-		title = [(x.text).replace("\n","").replace(" ","") for x in title]
+		title = [(x.text).replace("\n","").replace("  ","") for x in title]
 
 		if title:
-			return title     # returns title in list
+			return title[0]     # returns title in list
 
 		return None
 
