@@ -4,12 +4,14 @@ from pprint import pprint
 from bs4 import BeautifulSoup
 
 
+f = open("data.txt", 'w')
+
 class ProductData:
 	soup=''
 	reqt=''
 	def __init__(self, url):
 		self.reqt = (requests.get(url))
-		self.soup=BeautifulSoup((self.reqt).text,"lxml")			# making soup
+		self.soup=BeautifulSoup((self.reqt).text,"lxml").encode('utf-8')			# making soup
 
 
 	def get_images(self):	
@@ -102,3 +104,5 @@ pprint(prod.get_title())
 pprint(prod.get_images())
 pprint(prod.meta_data())
 pprint(prod.get_category())
+f.writelines(prod.meta_data())
+f.close()
