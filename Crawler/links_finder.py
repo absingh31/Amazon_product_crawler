@@ -1,4 +1,4 @@
-import urllib
+ import urllib
 from html.parser import HTMLParser
 from urllib.parse import urljoin
 from bs4 import BeautifulSoup

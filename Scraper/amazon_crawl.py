@@ -1,17 +1,15 @@
-from selenium import webdriver
 from bs4 import BeautifulSoup
-from selenium.webdriver.common.action_chains import ActionChains
 import requests
-from selenium.webdriver.chrome.options import Options
-from selenium.webdriver.common.keys import Keys
 import re
 from pprint import pprint
 import time
+from amazon_test import product_links
 class ProductData:
     soup = ''
     reqt = ''
 
     def __init__(self, url):
+        time.sleep(5)
         self.reqt = (requests.get(url))
         self.soup = BeautifulSoup((self.reqt).text, "lxml")  # making soup
 
@@ -88,46 +86,33 @@ class ProductData:
         # just a deconstructor
         return 0
 # Example use of the above defined class
-# prod = ProductData(input('Enter the url'))
-url='https://www.amazon.in/'
-driver=webdriver.Chrome()
-driver.get(url)
-category=driver.find_element_by_xpath('//*[@id="nav-link-shopall"]').click()
-# driver.execute_script('arguments[0].click();',category)
-time.sleep(0.2)
-mens_fashion=driver.find_element_by_xpath('//*[@id="shopAllLinks"]/tbody/tr/td[2]/div[2]/ul/li[2]/a').click()
-find_sponsor=driver.find_elements_by_css_selector('.a-spacing-none.a-color-tertiary.s-sponsored-header.sp-pixel-data.a-text-normal')
-print(len(find_sponsor))
-# driver.execute_script('arguments[0].click();',mens_fashion)
-all_products=driver.find_elements_by_css_selector('.a-link-normal.s-access-detail-page.s-color-twister-title-link.a-text-normal')
-print(len(all_products))
-xpath='//*[@id="result_i"]/div/div[3]/div[1]/a'
-new_xpath=xpath.split('_i')
-for i in range(len(find_sponsor),20):
-    abc=new_xpath[0] + '_' + str(i) + new_xpath[1]
-    link=driver.find_element_by_xpath(abc).get_attribute('href')
-    print(link)
-    prod=ProductData(link)
-    lund=prod.get_asin()
-    while(lund==None):
-        pr=ProductData(link)
-        pprint(prod.get_asin())
-        pprint(prod.get_title())
-        pprint(prod.get_images())
-        pprint(prod.meta_data())
-        pprint(prod.get_category())
-        print('\n')
-        # time.sleep(5)
-    pprint(prod.get_asin())
-    pprint(prod.get_title())
-    pprint(prod.get_images())
-    pprint(prod.meta_data())
-    pprint(prod.get_category())
-    print('\n')
-    # time.sleep(5)
+thefile = open('data.txt', 'w')
+for i in product_links:
+    while(True):
+            prod=ProductData(i)
+            lund=prod.get_asin()
+            if(lund!=None):
+                aa=prod.get_asin()
+                bb=prod.get_title()
+                cc=prod.get_images()
+                # dd=prod.meta_data()
+                ee=prod.get_category()
+                time.sleep(2)
+                thefile.writelines(i)
+                thefile.write('\n')
+                thefile.writelines(aa)
+                thefile.write('\n')
+                thefile.writelines(bb)
+                thefile.write('\n')
+                thefile.writelines(cc)
+                thefile.write('\n')
+                # thefile.writelines(dd)
+                # thefile.write('\n')
+                # thefile.writelines('\n')
+            else:
+                continue
+            break
+thefile.close()
 
-# //*[@id="result_3"]/div/div[3]/div[1]/a
-# //*[@id="result_4"]/div/div[3]/div[1]/a
-# //*[@id="result_16"]/div/div[3]/div[1]/a
-# //*[@id="result_37"]/div/div[3]/div[1]/a
-# //*[@id="result_99"]/div/div[3]/div[1]/a
+
+
