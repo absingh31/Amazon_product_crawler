@@ -1,8 +1,11 @@
+from pyvirtualdisplay import Display
 from selenium import webdriver
 from urllib.error import HTTPError
 import time
 from selenium.common.exceptions import NoSuchElementException
 
+display = Display(visible=0, size=(800, 800))  
+display.start()
 url='https://www.amazon.in/'
 driver=webdriver.Chrome()
 driver.get(url)
@@ -17,7 +20,7 @@ for i in range(2,5):
     j=1
     xpath='//*[@id="result_i"]/div/div[3]/div[1]/a'
     new_xpath=xpath.split('_i')
-    while(j<3):
+    while(j<5):
         print(j)
         d=[]
         b=driver.find_elements_by_tag_name('li')
@@ -40,9 +43,8 @@ for i in range(2,5):
         print(len(product_links))
         next_page = driver.find_element_by_xpath('//*[@id="pagnNextString"]')
         driver.execute_script('arguments[0].click();', next_page)
-        time.sleep(6)
+        #time.sleep(6)
     print('\n')
     print('Catergory 1 over')
     print('\n')
     driver.get('https://www.amazon.in/gp/site-directory/ref=nav_shopall_btn/260-5666397-1854820')
-    time.sleep(2)

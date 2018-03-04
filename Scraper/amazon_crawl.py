@@ -9,7 +9,6 @@ class ProductData:
     reqt = ''
 
     def __init__(self, url):
-        time.sleep(5)
         self.reqt = (requests.get(url))
         self.soup = BeautifulSoup((self.reqt).text, "lxml")  # making soup
 
@@ -86,33 +85,72 @@ class ProductData:
         # just a deconstructor
         return 0
 # Example use of the above defined class
-thefile = open('data.txt', 'w')
+product_fails=[]
+abcd=0
+
 for i in product_links:
-    while(True):
-            prod=ProductData(i)
-            lund=prod.get_asin()
-            if(lund!=None):
-                aa=prod.get_asin()
-                bb=prod.get_title()
-                cc=prod.get_images()
-                # dd=prod.meta_data()
-                ee=prod.get_category()
-                time.sleep(2)
-                thefile.writelines(i)
-                thefile.write('\n')
-                thefile.writelines(aa)
-                thefile.write('\n')
-                thefile.writelines(bb)
-                thefile.write('\n')
-                thefile.writelines(cc)
-                thefile.write('\n')
-                # thefile.writelines(dd)
-                # thefile.write('\n')
-                # thefile.writelines('\n')
-            else:
-                continue
-            break
-thefile.close()
+        prod=ProductData(i)
+        lund=prod.get_asin()
+        if(lund!=None):
+            aa=prod.get_asin()
+            bb=prod.get_title()
+            cc=prod.get_images()
+            dd=prod.meta_data()
+            ee=prod.get_category()
+            #time.sleep(2)
+            pprint(aa)
+            pprint(bb)
+            pprint(cc)
+            pprint(dd)
+            pprint(ee)
+           # pprint(abcd)
+            #abcd = abcd + 1
+            # thefile.writelines(i)
+            # thefile.write('\n')
+            # thefile.writelines(aa)
+            # thefile.write('\n')
+            # thefile.writelines(bb)
+            # thefile.write('\n')
+            # thefile.writelines(cc)
+            # thefile.write('\n')
+            # thefile.writelines(dd)
+            # thefile.write('\n')
+            # thefile.writelines('\n')
+        else:
+            product_fails.append(i)
+	    #pprint(abcd)
+	    #abcd = abcd + 1
+        pprint(abcd)
+        abcd=abcd+1
+
+for i in product_fails:
+        prod=ProductData(i)
+        lund=prod.get_asin()
+        if(lund!=None):
+            aa=prod.get_asin()
+            bb=prod.get_title()
+            cc=prod.get_images()
+            dd=prod.meta_data()
+            ee=prod.get_category()
+            pprint(aa)
+            pprint(bb)
+            pprint(cc)
+            pprint(dd)
+            pprint(ee)
+            pprint(abcd)
+            abcd = abcd + 1
+            # thefile.writelines(i)
+            # thefile.write('\n')
+            # thefile.writelines(aa)
+            # thefile.write('\n')
+            # thefile.writelines(bb)
+            # thefile.write('\n')
+            # thefile.writelines(cc)
+            # thefile.write('\n')
+            # thefile.writelines(dd)
+            # thefile.write('\n')
+            # thefile.writelines('\n')
+
 
 
 
