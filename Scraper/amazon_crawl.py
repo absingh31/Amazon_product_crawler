@@ -10,7 +10,7 @@ class ProductData:
 
     def __init__(self, url):
         self.reqt = (requests.get(url))
-        self.soup = BeautifulSoup((self.reqt).text, "lxml")  # making soup
+        self.soup = BeautifulSoup((self.reqt).text, "lxml").decode('utf-8')  # making soup
 
     def get_images(self):
         im = self.soup.find(text=re.compile('\\colorImages\\b'))  # finding product images
@@ -95,7 +95,7 @@ for i in product_links:
             aa=prod.get_asin()
             bb=prod.get_title()
             cc=prod.get_images()
-            dd=prod.meta_data()
+            # dd=prod.meta_data()
             ee=prod.get_category()
             #time.sleep(2)
             pprint(aa)
@@ -103,21 +103,11 @@ for i in product_links:
             pprint(cc)
             pprint(dd)
             pprint(ee)
-           # pprint(abcd)
-            #abcd = abcd + 1
-            # thefile.writelines(i)
-            # thefile.write('\n')
-            # thefile.writelines(aa)
-            # thefile.write('\n')
-            # thefile.writelines(bb)
-            # thefile.write('\n')
-            # thefile.writelines(cc)
-            # thefile.write('\n')
-            # thefile.writelines(dd)
-            # thefile.write('\n')
-            # thefile.writelines('\n')
-        else:
+
+
+       else:
             product_fails.append(i)
+
 	    #pprint(abcd)
 	    #abcd = abcd + 1
         pprint(abcd)
